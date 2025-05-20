@@ -1,4 +1,4 @@
-from config.settings.base import *
+from config.settings.base import *  # NOQA:F403
 
 SECRET_KEY = ""
 
@@ -9,7 +9,7 @@ ALLOWED_HOSTS = []
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",  # NOQA:F405
     }
 }
 
