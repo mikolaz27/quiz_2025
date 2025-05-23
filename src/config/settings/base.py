@@ -10,6 +10,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "phonenumber_field",
+    "accounts",
+    "common",
+    "quiz",
 ]
 
 MIDDLEWARE = [
@@ -23,6 +27,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
+
+AUTH_USER_MODEL = "accounts.Gamer"
 
 TEMPLATES = [
     {
