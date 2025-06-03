@@ -8,16 +8,10 @@ from common.models import BaseModel
 
 class Category2(MPTTModel):
     name = models.CharField(max_length=200, unique=True)
-    parent = TreeForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='children'
-    )
+    parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
 
     class MPTTMeta:
-        order_insertion_by = ['name']
+        order_insertion_by = ["name"]
 
     class Meta:
         verbose_name_plural = "Categories 2"
@@ -30,13 +24,7 @@ class Category2(MPTTModel):
 class Category(BaseModel):
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to="media/category/covers", null=True, blank=True)
-    parent = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='children'
-    )
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -44,9 +32,6 @@ class Category(BaseModel):
 
     def __str__(self):
         return f"{self.name} ({self.id})"
-
-    def __str__(self):
-        return self.name
 
     def get_ancestors(self):
         ancestors = []
@@ -89,9 +74,8 @@ class Quiz(BaseModel):
     description = models.TextField(max_length=1025, blank=True, null=True)
     image = models.ImageField(default="default.png", upload_to="media/quiz/covers")
     level = models.PositiveSmallIntegerField(choices=LEVEL_CHOICES.choices, default=LEVEL_CHOICES.BASIC)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='quizzes', null=True)
-    category2 = models.ForeignKey(Category2, on_delete=models.PROTECT, related_name='quizzes2', null=True)
-
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="quizzes", null=True)
+    category2 = models.ForeignKey(Category2, on_delete=models.PROTECT, related_name="quizzes2", null=True)
 
     # category
     def __str__(self):
