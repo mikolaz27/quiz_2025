@@ -1,3 +1,28 @@
 from django.contrib import admin  # NOQA: F401
+from mptt.admin import DraggableMPTTAdmin
 
-# Register your models here.
+from quiz.models import Quiz, Question, Choice, Result, Category, Category2
+
+admin.site.register([Question, Choice, Result])
+
+
+@admin.register(Category2)
+class CategoryAdmin(DraggableMPTTAdmin):
+    mptt_indent_field = "name"
+    list_display = (
+        'tree_actions',
+        'indented_title',
+        'parent',
+    )
+    list_display_links = ('indented_title',)
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'parent')
+    list_filter = ('parent',)
+
+
+@admin.register(Quiz)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'description')
