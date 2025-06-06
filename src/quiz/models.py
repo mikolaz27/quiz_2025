@@ -77,7 +77,6 @@ class Quiz(BaseModel):
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="quizzes", null=True)
     category2 = models.ForeignKey(Category2, on_delete=models.PROTECT, related_name="quizzes2", null=True)
 
-    # category
     def __str__(self):
         return f"{self.title} ({self.id})"
 
