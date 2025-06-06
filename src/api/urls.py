@@ -9,7 +9,6 @@ app_name = "api"
 user_router = routers.DefaultRouter()
 user_router.register("gamers", GamerViewSet)
 
-
 schema_view = get_schema_view(
     openapi.Info(
         title="Quiz API",
@@ -23,10 +22,10 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-
 urlpatterns = [
     path("docs/", schema_view.with_ui("redoc", cache_timeout=0), name="swagger_docs"),
     path("", include(user_router.urls)),
+    path("auth/", include("djoser.urls.jwt")),
     path("quiz/<int:pk>/question/<int:order>/", QuestionDetailView.as_view(), name="question_details"),
     path("quiz/", QuizListView.as_view(), name="quiz_list"),
 ]
