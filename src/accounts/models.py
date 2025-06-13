@@ -43,8 +43,8 @@ class Gamer(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _("customer")
-        verbose_name_plural = _("customers")
+        verbose_name = _("gamer")
+        verbose_name_plural = _("gamers")
 
     def clean(self):
         super().clean()
