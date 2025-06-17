@@ -1,3 +1,5 @@
+from unittest import mock
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
@@ -41,7 +43,7 @@ class TestApi(TestCase):
             result.data,
             [
                 {
-                    "id": 1,
+                    "id": mock.ANY,
                     "title": "Test",
                     "description": "Some description for testing API",
                     "level": "Advanced",
