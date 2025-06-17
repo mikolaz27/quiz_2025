@@ -1,0 +1,44 @@
+services:
+  backend:
+    build: ./
+    container_name: quiz_container
+    working_dir: /quiz
+    ports:
+      - "8015:8025"
+    command:
+      - ./commands/start_server_dev.sh
+    volumes:
+      - ./src:/quiz/src
+      - ./commands:/quiz/commands/
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:17.5
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "5000:80"
+    volumes:
+      - pg_admin:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+#  celery: ...
+
+volumes:
+  pg_data: { }
+  pg_admin: { }
