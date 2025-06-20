@@ -6,10 +6,12 @@ services:
     ports:
       - "8015:8025"
     command:
-      - ./commands/start_server_dev.sh
+      - ./commands/start_server_${MODE}.sh
     volumes:
       - ./src:/quiz/src
       - ./commands:/quiz/commands/
+      - static_content:/quiz/src/static
+      - media_content:/quiz/src/media
     env_file:
       - .env
     depends_on:
@@ -37,8 +39,49 @@ services:
     depends_on:
       - postgres
 
+  mongodb:
+    image: mongo:8.0.10
+    container_name: mongo_db_container
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+    env_file:
+      - .env
+    restart: on-failure
+
+  mongoadmin:
+    image: mongo-express
+    restart: on-failure
+    container_name: mongo_admin_container
+    ports:
+      - 8091:8081
+    env_file:
+      - .env
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+
+  nginx:
+    image: nginx:1.19
+    volumes:
+      - static_content:/quiz/src/static
+      - media_content:/quiz/src/media
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
 #  celery: ...
 
 volumes:
   pg_data: { }
   pg_admin: { }
+  mongo_data: { }
+  static_content: { }
+  media_content: { }
