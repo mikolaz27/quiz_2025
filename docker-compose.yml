@@ -4,7 +4,7 @@ services:
     container_name: quiz_container
     working_dir: /quiz
     ports:
-      - "8015:8025"
+      - ${LOCAL_PORT}:${WSGI_PORT}
     command:
       - ./commands/start_server_${MODE}.sh
     volumes:
