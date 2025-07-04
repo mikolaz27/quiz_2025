@@ -1,4 +1,7 @@
+from datetime import timedelta
 from pathlib import Path
+
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -10,6 +13,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_yasg",
+    "django_celery_beat",
+    "redis_admin",
+    "rest_framework",
+    "djoser",
+    "mptt",
+    "phonenumber_field",
+    "accounts",
+    "common",
+    "quiz",
 ]
 
 MIDDLEWARE = [
@@ -23,6 +36,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
+
+AUTH_USER_MODEL = "accounts.Gamer"
 
 TEMPLATES = [
     {
@@ -65,3 +80,37 @@ USE_I18N = True
 USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
+}
+
+DJOSER = {
+    "LOGIN_FIELD": "email",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
+    "PASSWORD_RESET_CONFIRM_URL": "auth/password-reset/{uid}/{token}",
+}
+
+CELERY_BROKER_URL = "redis://redis"
+CELERY_BROKER_BACKEND = "redis://redis"
+
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
+
+CELERY_BEAT_SCHEDULE = {"i_am_gonna_be_rich": {"task": "quiz.tasks.mine_bitcoin", "schedule": crontab(minute="*/2")}}
+
+
+REDIS_SERVERS = {"redis_server_a": {"host": "redis", "port": 6379}}
+
+REDIS_JSON_KEY_RE = ".*"
+REDIS_BASE64_KEY_RE = ".*"
