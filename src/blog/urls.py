@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import path
 
 from blog.views import all_blogs, create_blog
 

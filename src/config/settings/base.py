@@ -107,20 +107,10 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
 
-CELERY_BEAT_SCHEDULE = {
-    "i_am_gonna_be_rich": {
-        "task": "quiz.tasks.mine_bitcoin",
-        "schedule": crontab(minute="*/2")
-    }
-}
+CELERY_BEAT_SCHEDULE = {"i_am_gonna_be_rich": {"task": "quiz.tasks.mine_bitcoin", "schedule": crontab(minute="*/2")}}
 
 
-REDIS_SERVERS = {
-    "redis_server_a":{
-        "host":"redis",
-        "port":6379
-    }
-}
+REDIS_SERVERS = {"redis_server_a": {"host": "redis", "port": 6379}}
 
-REDIS_JSON_KEY_RE = '.*'
-REDIS_BASE64_KEY_RE = '.*'
+REDIS_JSON_KEY_RE = ".*"
+REDIS_BASE64_KEY_RE = ".*"

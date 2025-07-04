@@ -6,7 +6,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     "default": {
@@ -15,9 +15,9 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = BASE_DIR / "static/"
+STATIC_ROOT = BASE_DIR / "static/"  # NOQA: F405
 STATIC_URL = "static/"
 
 
-MEDIA_ROOT = BASE_DIR / "media/"
+MEDIA_ROOT = BASE_DIR / "media/"  # NOQA: F405
 MEDIA_URL = "media/"

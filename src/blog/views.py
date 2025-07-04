@@ -1,9 +1,7 @@
-from IPython.core.release import author
+from django.http import HttpRequest, HttpResponse
 from faker import Faker
 
-from django.http import HttpRequest, HttpResponse
-
-from blog.models import Entity, Blog
+from blog.models import Blog, Entity
 
 
 def create_blog(request: HttpRequest) -> HttpResponse:
@@ -11,10 +9,9 @@ def create_blog(request: HttpRequest) -> HttpResponse:
 
     saved_date = Entity(
         blog=[
-            Blog(name=faker.word(), text=faker.paragraph(nb_sentences=5), author=faker.first_name())
-            for _ in range(3)
+            Blog(name=faker.word(), text=faker.paragraph(nb_sentences=5), author=faker.first_name()) for _ in range(3)
         ],
-        headline=faker.paragraph(nb_sentences=1)
+        headline=faker.paragraph(nb_sentences=1),
     ).save()
 
     return HttpResponse(f"Done: {saved_date}")

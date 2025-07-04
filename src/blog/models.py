@@ -1,14 +1,15 @@
 from datetime import datetime
 
 from django.db import models  # NOQA: F401
-from mongoengine import (Document, EmbeddedDocument, StringField, IntField, ListField, DateTimeField,
-                         EmbeddedDocumentField)
-
+from mongoengine import (DateTimeField, Document, EmbeddedDocument,
+                         EmbeddedDocumentField, IntField, ListField,
+                         StringField)
 
 # key1 = {1:1}
 # key2 = {1:{2:2}}
 # key3 = "21312dfsalkfdslkfnalskcndslakcnsdlk"
 # key4 = 123
+
 
 class Blog(EmbeddedDocument):
     name = StringField(max_length=255)

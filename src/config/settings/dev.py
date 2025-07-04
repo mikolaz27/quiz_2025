@@ -1,8 +1,8 @@
 import os
 
-from config.settings.base import *  # NOQA:F403
-
 import mongoengine
+
+from config.settings.base import *  # NOQA:F403
 
 SECRET_KEY = "django-insecure-mp3m1$h1($o)*wekb!t2=y$b^u)16t8gt)m6r$xbyxnx647l(4"
 
@@ -41,7 +41,6 @@ else:
         #     "HOST": "localhost",
         #     "PORT": 5432,
         # },
-
         "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": os.environ.get("POSTGRES_DB"),
