@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "drf_yasg",
     "django_celery_beat",
+    "redis_admin",
     "rest_framework",
     "djoser",
     "mptt",
@@ -112,3 +113,14 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute="*/2")
     }
 }
+
+
+REDIS_SERVERS = {
+    "redis_server_a":{
+        "host":"redis",
+        "port":6379
+    }
+}
+
+REDIS_JSON_KEY_RE = '.*'
+REDIS_BASE64_KEY_RE = '.*'
